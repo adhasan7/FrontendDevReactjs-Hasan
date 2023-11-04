@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { GetProducts } from "./service/ProductService";
+import Header from "./component/Header";
+import ProductCard from "./component/ProductCard";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Main from "./component/Main";
+import Detail from "./component/Detail";
+import NotFound from "./component/NotFound";
 
 function App() {
+  const routes = createBrowserRouter([
+    {
+      id: `/`,
+      path: `/`,
+      element: <Main />,
+    },
+    {
+      id: `/detail/:id`,
+      path: `/detail/:id`,
+      element: <Detail />,
+    },
+    {
+      id: `*`,
+      path: `*`,
+      element: <NotFound />,
+    },
+  ]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <RouterProvider router={routes}></RouterProvider>
     </div>
   );
 }
